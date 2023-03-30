@@ -38,7 +38,7 @@ namespace Subscriber1.Controllers
         public async Task<ActionResult> Subscribe2(MyOrder order)
         {
             //using var client = new DaprClientBuilder().Build();
-            //await client.PublishEventAsync("pubsub", "myorders", order);
+            //await client.PublishEventAsync("pubsub", "myorders2", order);
             Console.WriteLine($"Subscribed order with order id {order.MyOrderId} and name {order.MyOrderName}");
             await Task.Run(() =>
             {

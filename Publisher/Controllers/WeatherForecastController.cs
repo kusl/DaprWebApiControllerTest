@@ -35,10 +35,10 @@ namespace Publisher.Controllers
 
         //[Topic("pubsub", "myorders2")]
         [HttpPost("publisher2")]
-        public async Task<ActionResult> Subscribe2(MyOrder order)
+        public async Task<ActionResult> Publish2(MyOrder order)
         {
             using var client = new DaprClientBuilder().Build();
-            await client.PublishEventAsync("pubsub", "myorders", order);
+            await client.PublishEventAsync("pubsub", "myorders2", order);
             Console.WriteLine($"Published order with order id {order.MyOrderId} and name {order.MyOrderName}");
             await Task.Run(() =>
             {
