@@ -33,9 +33,9 @@ namespace Subscriber1.Controllers
             .ToArray();
         }
 
-        [Topic("pubsub", "myorders2")]
-        [HttpPost("subscriber2")]
-        public async Task<ActionResult> Subscribe2(MyOrder order)
+        [Topic("pubsub", "myorders3")]
+        [HttpPost("subscriber3")]
+        public async Task<ActionResult> Subscribe3(MyOrder order)
         {
             //using var client = new DaprClientBuilder().Build();
             //await client.PublishEventAsync("pubsub", "myorders2", order);

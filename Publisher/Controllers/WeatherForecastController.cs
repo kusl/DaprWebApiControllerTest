@@ -46,5 +46,19 @@ namespace Publisher.Controllers
             });
             return Ok(order);
         }
+
+        //[Topic("pubsub", "myorders3")]
+        [HttpPost("publisher3")]
+        public async Task<ActionResult> Publish3(MyOrder order)
+        {
+            using var client = new DaprClientBuilder().Build();
+            await client.PublishEventAsync("pubsub", "myorders3", order);
+            Console.WriteLine($"Published order with order id {order.MyOrderId} and name {order.MyOrderName}");
+            await Task.Run(() =>
+            {
+                Console.WriteLine($"Published to order with order id {order.MyOrderId} and name {order.MyOrderName}");
+            });
+            return Ok(order);
+        }
     }
 }
