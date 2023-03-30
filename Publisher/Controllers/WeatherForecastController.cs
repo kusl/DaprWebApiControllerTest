@@ -1,4 +1,3 @@
-using Dapr;
 using Dapr.Client;
 using Microsoft.AspNetCore.Mvc;
 using Models;
