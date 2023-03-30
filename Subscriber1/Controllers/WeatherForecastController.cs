@@ -1,4 +1,7 @@
+using Dapr;
+using Dapr.Client;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 
 namespace Subscriber1.Controllers
 {
@@ -28,6 +31,20 @@ namespace Subscriber1.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [Topic("pubsub", "myorders2")]
+        [HttpPost("subscriber2")]
+        public async Task<ActionResult> Subscribe2(MyOrder order)
+        {
+            //using var client = new DaprClientBuilder().Build();
+            //await client.PublishEventAsync("pubsub", "myorders", order);
+            Console.WriteLine($"Subscribed order with order id {order.MyOrderId} and name {order.MyOrderName}");
+            await Task.Run(() =>
+            {
+                Console.WriteLine($"Subscribed to order with order id {order.MyOrderId} and name {order.MyOrderName}");
+            });
+            return Ok(order);
         }
     }
 }
