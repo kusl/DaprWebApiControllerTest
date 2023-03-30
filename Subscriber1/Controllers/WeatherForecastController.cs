@@ -32,12 +32,26 @@ namespace Subscriber1.Controllers
             .ToArray();
         }
 
+        [Topic("pubsub", "myorders2")]
+        [HttpPost("subscriber2")]
+        public async Task<ActionResult> Subscribe2(MyOrder order)
+        {
+            //using var client = new DaprClientBuilder().Build();
+            //await client.PublishEventAsync("pubsub", "myorders2", order);
+            Console.WriteLine($"Subscribed order with order id {order.MyOrderId} and name {order.MyOrderName}");
+            await Task.Run(() =>
+            {
+                Console.WriteLine($"Subscribed to order with order id {order.MyOrderId} and name {order.MyOrderName}");
+            });
+            return Ok(order);
+        }
+
         [Topic("pubsub", "myorders3")]
         [HttpPost("subscriber3")]
         public async Task<ActionResult> Subscribe3(MyOrder order)
         {
             //using var client = new DaprClientBuilder().Build();
-            //await client.PublishEventAsync("pubsub", "myorders2", order);
+            //await client.PublishEventAsync("pubsub", "myorders3", order);
             Console.WriteLine($"Subscribed order with order id {order.MyOrderId} and name {order.MyOrderName}");
             await Task.Run(() =>
             {
