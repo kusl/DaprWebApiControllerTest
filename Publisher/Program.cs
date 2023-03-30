@@ -1,5 +1,7 @@
+using Dapr.Client;
 using Man.Dapr.Sidekick;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +48,14 @@ app.MapGet("/status1", ([FromServices] IDaprSidecarHost daprSidecarHost) =>
         process = daprSidecarHost.GetProcessInfo(),
         options = daprSidecarHost.GetProcessOptions()
     });
+});
+
+app.MapPost("/publish1", async (MyOrder order) =>
+{
+    using var client = new DaprClientBuilder().Build();
+    await client.PublishEventAsync("pubsub", "myorders", order);
+    Console.WriteLine($"Published order with order id {order.MyOrderId} and name {order.MyOrderName}");
+    return Results.Ok(order);
 });
 
 
