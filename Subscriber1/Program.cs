@@ -40,6 +40,7 @@ app.MapControllers();
 
 app.UseRouting();
 app.UseCloudEvents();
+app.MapSubscribeHandler();
 
 app.MapGet("/status1", ([FromServices] IDaprSidecarHost daprSidecarHost) =>
 {
